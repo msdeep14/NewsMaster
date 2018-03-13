@@ -1,0 +1,18 @@
+{% extends 'newsapp/base.html' %}
+
+{% block content %}
+<script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
+<link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"></link>
+
+<form action="#" method="get">
+	Select News Category:<br>
+ <input type="text" placeholder="#latestnews" name="hashtag" size="20"/>
+ <br><br>
+ <input type="submit" class="btn" value="Technology" name="techbtn">
+ <input type="submit" class="btn" value="Medical" name="medicalbtn">
+ <input type="submit" class="btn" value="Entertainment" name="entertainmentbtn">
+ <input type="submit" class="btn" value="Business" name="businessbtn">
+</form>
+
+
+{% endblock %}
