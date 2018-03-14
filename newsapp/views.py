@@ -7,13 +7,11 @@ from nltk.corpus import stopwords
 from nltk.corpus import subjectivity
 from nltk.sentiment import SentimentAnalyzer
 from nltk.sentiment.util import *
-from tkinter import *
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
-import tkinter
 from functools import partial
 
 API_KEY = "87e663cbe74e4c0c9a8cb4725bce4b42"
@@ -82,6 +80,11 @@ def newsfeed(request):
         category = 'e'
 
     articles = get_news_articles(category)
-    print('articles :: ',articles)
+    # print('articles :: ',articles)
 
-    return render(request, 'newsapp/newsfeed.html', {'article_list': articles})
+    # args['articles'] = articles
+    article_dict = {}
+    for article in articles:
+        article_dict[str(article['title'])] = (str(article['url']), str(article['publishedAt']))
+
+    return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})

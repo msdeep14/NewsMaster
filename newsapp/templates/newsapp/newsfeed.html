@@ -14,10 +14,16 @@
  <input type="submit" class="btn" value="Business" name="businessbtn">
 </form>
 
-{% for data in article_list|safeseq %}
-		<li>{{data}}</li>
+{% for title, data in article_list.items %}
+		<li>
+			{{ title }}<br>
+			<a href = '{{ data.0 }}' target="_blank">{{data.0}}</a><br>
+			publishedOn : {{data.1}}
+		</li>
 
 
+			{% empty %}
+	    Nothing found
 	{% endfor %}
 
 
