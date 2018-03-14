@@ -24,10 +24,10 @@ def train_model():
     perform_preprocessing()
 
 garbage = set(stopwords.words('english'))
-vectorizer = pickle.load(open("/home/mandeep/git_test/newsmaster/newsapp/vectorizer.p", "rb"))
-encoder = pickle.load(open("/home/mandeep/git_test/newsmaster/newsapp/encoder.p", "rb"))
-keywords = pickle.load(open("/home/mandeep/git_test/newsmaster/newsapp/keywords.p", "rb"))
-classifier = pickle.load(open("/home/mandeep/git_test/newsmaster/newsapp/classifier.p", "rb"))
+vectorizer = pickle.load(open("newsapp/vectorizer.p", "rb"))
+encoder = pickle.load(open("newsapp/encoder.p", "rb"))
+keywords = pickle.load(open("newsapp/keywords.p", "rb"))
+classifier = pickle.load(open("newsapp/classifier.p", "rb"))
 
 def normalize_text(s, keywords):
     s = s.lower()
@@ -56,7 +56,7 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 
 def get_news_articles(category):
     api = NewsApiClient(api_key=API_KEY)
-    articles_dict = api.get_everything(sources='google-news')
+    articles_dict = api.get_everything(sources='google-news,techcrunch,msnbc,bbc-sport,business-insider,cnn,entertainment-weekly,financial-times,financial-post,mtv-news,the-hindu,the-economist,the-guardian-uk')
 
     articles = articles_dict['articles']
     # print(articles)
@@ -85,6 +85,150 @@ def newsfeed(request):
     # args['articles'] = articles
     article_dict = {}
     for article in articles:
-        article_dict[str(article['title'])] = (str(article['url']), str(article['publishedAt']))
+        article_dict[str(article['title'])] = (str(article['url']), str(article['publishedAt']),
+        str(article['source']))
 
     return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})
+
+
+
+
+'''
+newsapi sources
+
+abc-news
+abc-news-au
+aftenposten
+al-jazeera-english
+ansa
+argaam
+ars-technica
+ary-news
+associated-press
+australian-financial-review
+axios
+bbc-news
+bbc-sport
+bild
+blasting-news-br
+bleacher-report
+bloomberg
+breitbart-news
+business-insider
+business-insider-uk
+buzzfeed
+cbc-news
+cbs-news
+cnbc
+cnn
+cnn-es
+crypto-coins-news
+daily-mail
+der-tagesspiegel
+die-zeit
+el-mundo
+engadget
+entertainment-weekly
+espn
+espn-cric-info
+financial-post
+financial-times
+focus
+football-italia
+fortune
+four-four-two
+fox-news
+fox-sports
+globo
+google-news
+google-news-ar
+google-news-au
+google-news-br
+google-news-ca
+google-news-fr
+google-news-in
+google-news-is
+google-news-it
+google-news-ru
+google-news-sa
+google-news-uk
+goteborgs-posten
+gruenderszene
+hacker-news
+handelsblatt
+ign
+il-sole-24-ore
+independent
+infobae
+info-money
+la-gaceta
+la-nacion
+la-repubblica
+le-monde
+lenta
+lequipe
+les-echos
+liberation
+marca
+mashable
+medical-news-today
+metro
+mirror
+msnbc
+mtv-news
+mtv-news-uk
+national-geographic
+nbc-news
+news24
+new-scientist
+news-com-au
+newsweek
+new-york-magazine
+next-big-future
+nfl-news
+nhl-news
+nrk
+politico
+polygon
+rbc
+recode
+reddit-r-all
+reuters
+rt
+rte
+rtl-nieuws
+sabq
+spiegel-online
+svenska-dagbladet
+t3n
+talksport
+techcrunch
+techcrunch-cn
+techradar
+the-economist
+the-globe-and-mail
+the-guardian-au
+the-guardian-uk
+the-hill
+the-hindu
+the-huffington-post
+the-irish-times
+the-lad-bible
+the-new-york-times
+the-next-web
+the-sport-bible
+the-telegraph
+the-times-of-india
+the-verge
+the-wall-street-journal
+the-washington-post
+time
+usa-today
+vice-news
+wired
+wired-de
+wirtschafts-woche
+xinhua-net
+ynet
+
+'''

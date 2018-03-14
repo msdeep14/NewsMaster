@@ -18,12 +18,13 @@
 		<li>
 			{{ title }}<br>
 			<a href = '{{ data.0 }}' target="_blank">{{data.0}}</a><br>
-			publishedOn : {{data.1}}
+			publishedOn : {{data.1}}<br>
+			{{ data.2 }}
 		</li>
 
 
 			{% empty %}
-	    Nothing found
+	    No relevant news, try another category
 	{% endfor %}
 
 
