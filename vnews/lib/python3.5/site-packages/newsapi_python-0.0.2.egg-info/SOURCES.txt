@@ -1,0 +1,11 @@
+setup.cfg
+setup.py
+newsapi/__init__.py
+newsapi/newsapi_auth.py
+newsapi/newsapi_client.py
+newsapi_python.egg-info/PKG-INFO
+newsapi_python.egg-info/SOURCES.txt
+newsapi_python.egg-info/dependency_links.txt
+newsapi_python.egg-info/requires.txt
+newsapi_python.egg-info/top_level.txt
+tests/__init__.py
