@@ -14,6 +14,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from functools import partial
 
+# from preprocessing import perform_preprocessing,normalize_text
+from . import preprocessing
+
 API_KEY = "87e663cbe74e4c0c9a8cb4725bce4b42"
 
 # Create your views here.
@@ -21,7 +24,7 @@ API_KEY = "87e663cbe74e4c0c9a8cb4725bce4b42"
 
 
 def train_model():
-    perform_preprocessing()
+    preprocessing.perform_preprocessing()
 
 garbage = set(stopwords.words('english'))
 vectorizer = pickle.load(open("newsapp/vectorizer.p", "rb"))
@@ -29,6 +32,7 @@ encoder = pickle.load(open("newsapp/encoder.p", "rb"))
 keywords = pickle.load(open("newsapp/keywords.p", "rb"))
 classifier = pickle.load(open("newsapp/classifier.p", "rb"))
 
+'''
 def normalize_text(s, keywords):
     s = s.lower()
 
@@ -42,13 +46,14 @@ def normalize_text(s, keywords):
         keywords.append(word)
     s = " ".join(s)
     return s
+'''
 
 def format_live_news_title(title, keywords):
     return [" ".join(list(word for word in title.split() if word in keywords))]
 
 
 def find_category(title, vectorizer, encoder, keywords, classifier):
-    sample = normalize_text(title, [])
+    sample = preprocessing.normalize_text(title, [])
     sample = format_live_news_title(sample, keywords)
     sample = vectorizer.transform(sample)
     output = classifier.predict(sample)

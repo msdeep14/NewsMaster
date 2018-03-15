@@ -8,12 +8,15 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 import pickle
-import bayes
+# import bayes
 
 # stemming
 from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
 
+# global
+ps = PorterStemmer()
+garbage = set(stopwords.words('english'))
 
 # perform filtering, tokenization and finally
 # stop words removal
@@ -29,7 +32,6 @@ def normalize_text(s, keywords):
     for word in s:
         keywords.append(word)
     s = " ".join(s)
-    #print("s :: ",s)
     return s
 
 # get root word using stemming
@@ -40,24 +42,19 @@ def perform_stemming(keywords):
     return result_set
 
 def perform_preprocessing():
-    ps = PorterStemmer()
 
 
     # Read data and initialize stop-words
     # news = pd.read_excel('newss.xlsx', usecols=['title', 'category'])
     # news = pd.read_excel('newss.xlsx', usecols=["B,C"])
-    garbage = set(stopwords.words('english'))
 
     news = pd.read_csv('/home/mandeep/news.csv')
-    news2 = pd.read_excel('newss.xlsx')
+    # news2 = pd.read_excel('newss.xlsx')
 
-    # print("normalized\n")
     # print(news)
-    print("stopwords:: ",garbage)
+    # print("stopwords:: ",garbage)
     # fp1 = open("/home/mandeep/Downloads/project-be/stopwords.txt",'w')
     # fp1.write(str(stopwords))
-
-
 
     keywords = []
     news['title'] = [normalize_text(str(s), keywords) for s in news['title']]
@@ -69,17 +66,13 @@ def perform_preprocessing():
     keywords = set(keywords)
 
     s2 = len(keywords)
-    print("s1 :: ",s1,"s2:: ",s2)
+    # print("s1 :: ",s1,"s2:: ",s2)
 
     # print("keywords:: ",keywords)
-    fp = open("/home/mandeep/project-be/keywords.txt",'w')
-    fp.write(str(keywords))
-
+    # fp = open("/home/mandeep/project-be/keywords.txt",'w')
+    # fp.write(str(keywords))
 
     news['category'] = news['category'].fillna('x')
-
-    # print(news['title'])
-
     vectorizer = CountVectorizer()
 
     # print("vectorizer:: ",vectorizer)
@@ -120,3 +113,6 @@ def perform_preprocessing():
     pickle.dump(keywords, open("keywords.p", "wb"))
     pickle.dump(nb, open("classifier.p", "wb"))
     print("Model saved")
+
+
+# perform_preprocessing()
