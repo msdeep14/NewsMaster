@@ -14,6 +14,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from functools import partial
 
+from dateutil.parser import parse
+
 # from preprocessing import perform_preprocessing,normalize_text
 from . import preprocessing
 
@@ -21,16 +23,11 @@ API_KEY = "87e663cbe74e4c0c9a8cb4725bce4b42"
 
 # Create your views here.
 
-
-
-def train_model():
-    preprocessing.perform_preprocessing()
-
 garbage = set(stopwords.words('english'))
-vectorizer = pickle.load(open("newsapp/vectorizer.p", "rb"))
-encoder = pickle.load(open("newsapp/encoder.p", "rb"))
-keywords = pickle.load(open("newsapp/keywords.p", "rb"))
-classifier = pickle.load(open("newsapp/classifier.p", "rb"))
+vectorizer = pickle.load(open("pickle-data/vectorizer.p", "rb"))
+encoder = pickle.load(open("pickle-data/encoder.p", "rb"))
+keywords = pickle.load(open("pickle-data/keywords.p", "rb"))
+classifier = pickle.load(open("pickle-data/classifier.p", "rb"))
 
 '''
 def normalize_text(s, keywords):
@@ -61,7 +58,7 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 
 def get_news_articles(category):
     api = NewsApiClient(api_key=API_KEY)
-    articles_dict = api.get_everything(sources='google-news,techcrunch,msnbc,bbc-sport,business-insider,cnn,entertainment-weekly,financial-times,financial-post,mtv-news,the-hindu,the-economist,the-guardian-uk')
+    articles_dict = api.get_everything(sources='google-news,techcrunch,msnbc,bbc-sport,business-insider,cnn,entertainment-weekly,financial-times,financial-post,mtv-news,the-economist,the-guardian-uk')
 
     articles = articles_dict['articles']
     # print(articles)
@@ -90,8 +87,10 @@ def newsfeed(request):
     # args['articles'] = articles
     article_dict = {}
     for article in articles:
-        article_dict[str(article['title'])] = (str(article['url']), str(article['publishedAt']),
-        str(article['source']))
+        dt = parse(str(article['publishedAt']))
+        dt = dt.strftime('%h %d, %Y')
+        article_dict[str(article['title'])] = (str(article['url']), str(dt),
+        str(article['source']['name']))
 
     return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})
 

@@ -5,21 +5,31 @@
 <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"></link>
 
 <form action="#" method="get">
+	Select News Source:<br>
+	<input type="submit" class="btn" value="google news" name="google-news-btn">
+	<input type="submit" class="btn" value="techcrunch" name="techcrunch-btn">
+	<input type="submit" class="btn" value="the hindu" name="the-hindu-btn">
+</form>
+<!-- <span class="utc">Thursday, March 15 2018, 18:31:08 +0000 UTC</span> -->
+<form action="#" method="get">
 	Select News Category:<br>
- <input type="text" placeholder="#latestnews" name="hashtag" size="20"/>
- <br><br>
+ <!-- <input type="text" placeholder="#latestnews" name="hashtag" size="20"/>
+ <br><br> -->
  <input type="submit" class="btn" value="Technology" name="techbtn">
  <input type="submit" class="btn" value="Medical" name="medicalbtn">
  <input type="submit" class="btn" value="Entertainment" name="enterbtn">
  <input type="submit" class="btn" value="Business" name="businessbtn">
 </form>
+<br>
+<!-- <a href = "">google news</a> -->
 
 {% for title, data in article_list.items %}
 		<li>
-			{{ title }}<br>
-			<a href = '{{ data.0 }}' target="_blank">{{data.0}}</a><br>
-			publishedOn : {{data.1}}<br>
+
+			<a href = '{{ data.0 }}' target="_blank">{{title}}</a><br>
 			{{ data.2 }}
+			 {{data.1}}
+
 		</li>
 
 
