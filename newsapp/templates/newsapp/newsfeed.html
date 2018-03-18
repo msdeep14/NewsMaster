@@ -4,12 +4,19 @@
 <script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
 <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"></link>
 
-<form action="#" method="get">
+<select>
+  <option value="google-news">google news</option>
+  <option value="business-insider">business insider</option>
+  <option value="the-hindu">the hindu</option>
+  <option value="techcrunch">techcrunch</option>
+</select>
+
+<!-- <form action="#" method="get">
 	Select News Source:<br>
 	<input type="submit" class="btn" value="google news" name="google-news-btn">
 	<input type="submit" class="btn" value="techcrunch" name="techcrunch-btn">
 	<input type="submit" class="btn" value="the hindu" name="the-hindu-btn">
-</form>
+</form> -->
 <!-- <span class="utc">Thursday, March 15 2018, 18:31:08 +0000 UTC</span> -->
 <form action="#" method="get">
 	Select News Category:<br>
@@ -27,7 +34,7 @@
 		<li>
 
 			<a href = '{{ data.0 }}' target="_blank">{{title}}</a><br>
-			{{ data.2 }}
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ data.2 }}
 			 {{data.1}}
 
 		</li>

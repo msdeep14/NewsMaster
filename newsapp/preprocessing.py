@@ -98,7 +98,7 @@ def train_model(news, keywords):
 def perform_preprocessing():
     # news = pd.read_excel('newss.xlsx', usecols=['title', 'category'])
     # news = pd.read_excel('newss.xlsx', usecols=["B,C"])
-    news = pd.read_csv('/home/mandeep/news.csv')
+    news = pd.read_excel('newsapp/newss.xlsx')
     # news2 = pd.read_excel('newss.xlsx')
 
     # print(news)

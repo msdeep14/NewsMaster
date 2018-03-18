@@ -58,9 +58,11 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 
 def get_news_articles(category):
     api = NewsApiClient(api_key=API_KEY)
-    articles_dict = api.get_everything(sources='google-news,techcrunch,msnbc,bbc-sport,business-insider,cnn,entertainment-weekly,financial-times,financial-post,mtv-news,the-economist,the-guardian-uk')
+    articles_dict = api.get_everything(sources='google-news,techcrunch,business-insider,cnn,entertainment-weekly',language='en',page_size=100)
+    # print("articles:: ",articles_dict)
 
     articles = articles_dict['articles']
+    # print("len :: ",len(articles))
     # print(articles)
     for article in articles:
         article["category"] = find_category(article["title"], vectorizer, encoder, keywords, classifier)
