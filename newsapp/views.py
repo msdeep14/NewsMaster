@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 import json
 import urllib.request
-from newsapi import NewsApiClient
+# from newsapi import NewsApiClient
 from nltk.corpus import stopwords
 from nltk.corpus import subjectivity
 from nltk.sentiment import SentimentAnalyzer
@@ -20,7 +20,9 @@ from dateutil.parser import parse
 from . import preprocessing
 
 API_KEY = "87e663cbe74e4c0c9a8cb4725bce4b42"
-
+# from newsapi.newsapi_client import NewsApiClient
+# from newsapp.newsapi.newsapi_client import NewsApiClient
+from . import newsapi
 # Create your views here.
 
 garbage = set(stopwords.words('english'))
@@ -57,17 +59,22 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
     return encoder.inverse_transform(output)[0]
 
 def get_news_articles(category):
-    api = NewsApiClient(api_key=API_KEY)
+    api = newsapi.newsapi_client.NewsApiClient(api_key=API_KEY)
     articles_dict = api.get_everything(sources='google-news,techcrunch,business-insider,cnn,entertainment-weekly',language='en',page_size=100)
     # print("articles:: ",articles_dict)
+    relevant_articles = []
+    try:
+        articles = articles_dict['articles']
+        for article in articles:
+            article["category"] = find_category(article["title"], vectorizer, encoder, keywords, classifier)
 
-    articles = articles_dict['articles']
+        relevant_articles = list(filter((lambda x : category == x["category"]), articles))
+    # only 1000 requests are allowed per day to newsapi.org
+    except:
+        print("{'message': 'You have exhausted your daily request limit. Developer accounts are limited to 1,000 requests in a 24 hour period. Please upgrade to a paid plan if you need more requests.', 'status': 'error', 'code': 'rateLimited'}")
     # print("len :: ",len(articles))
     # print(articles)
-    for article in articles:
-        article["category"] = find_category(article["title"], vectorizer, encoder, keywords, classifier)
 
-    relevant_articles = list(filter((lambda x : category == x["category"]), articles))
     return relevant_articles
 
 
