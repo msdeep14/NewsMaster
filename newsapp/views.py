@@ -2,7 +2,6 @@ from django.shortcuts import render
 
 import json
 import urllib.request
-# from newsapi import NewsApiClient
 from nltk.corpus import stopwords
 from nltk.corpus import subjectivity
 from nltk.sentiment import SentimentAnalyzer
@@ -16,7 +15,6 @@ from functools import partial
 
 from dateutil.parser import parse
 
-# from preprocessing import perform_preprocessing,normalize_text
 from . import preprocessing
 
 API_KEY = "87e663cbe74e4c0c9a8cb4725bce4b42"
@@ -31,21 +29,6 @@ encoder = pickle.load(open("pickle-data/encoder.p", "rb"))
 keywords = pickle.load(open("pickle-data/keywords.p", "rb"))
 classifier = pickle.load(open("pickle-data/classifier.p", "rb"))
 
-'''
-def normalize_text(s, keywords):
-    s = s.lower()
-
-    s = re.sub('\s\W', ' ', s)
-    s = re.sub('\W\s', ' ', s)
-
-    s = re.sub('\s+', ' ', s)
-    s = s.split()
-    s = list(filter((lambda x: x not in garbage), s))
-    for word in s:
-        keywords.append(word)
-    s = " ".join(s)
-    return s
-'''
 
 def format_live_news_title(title, keywords):
     return [" ".join(list(word for word in title.split() if word in keywords))]
@@ -60,8 +43,9 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 
 def get_news_articles(category):
     api = newsapi.newsapi_client.NewsApiClient(api_key=API_KEY)
-    articles_dict = api.get_everything(sources='google-news,techcrunch,business-insider,cnn,entertainment-weekly',language='en',page_size=100)
+    articles_dict = api.get_everything(sources='google-news,techcrunch,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100)
     # print("articles:: ",articles_dict)
+
     relevant_articles = []
     try:
         articles = articles_dict['articles']
@@ -69,6 +53,10 @@ def get_news_articles(category):
             article["category"] = find_category(article["title"], vectorizer, encoder, keywords, classifier)
 
         relevant_articles = list(filter((lambda x : category == x["category"]), articles))
+
+        # TODO: now process articles for relevancy
+        
+
     # only 1000 requests are allowed per day to newsapi.org
     except:
         print("{'message': 'You have exhausted your daily request limit. Developer accounts are limited to 1,000 requests in a 24 hour period. Please upgrade to a paid plan if you need more requests.', 'status': 'error', 'code': 'rateLimited'}")
@@ -99,7 +87,7 @@ def newsfeed(request):
         dt = parse(str(article['publishedAt']))
         dt = dt.strftime('%h %d, %Y')
         article_dict[str(article['title'])] = (str(article['url']), str(dt),
-        str(article['source']['name']))
+        str(article['source']['name']), str(article['description']))
 
     return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})
 

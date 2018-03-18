@@ -95,6 +95,7 @@ class NewsApiClient(object):
 
         # Send Request
         r = requests.get(self.url + '/everything', auth=self.auth, timeout=30, params=payload)
+        # print("r news :: \n",r.json())
         return r.json()
 
     def get_sources(self, category=None, language=None, country=None):
