@@ -16,6 +16,7 @@ from functools import partial
 from dateutil.parser import parse
 
 from . import preprocessing
+from . import processRelevancy
 
 API_KEY = "87e663cbe74e4c0c9a8cb4725bce4b42"
 # from newsapi.newsapi_client import NewsApiClient
@@ -43,19 +44,16 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 
 def get_news_articles(category):
     api = newsapi.newsapi_client.NewsApiClient(api_key=API_KEY)
-    articles_dict = api.get_everything(sources='google-news,techcrunch,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100)
+    articles_dict = api.get_everything(sources='google-news,techcrunch,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100)
     # print("articles:: ",articles_dict)
 
-    relevant_articles = []
+    filtered_articles = []
     try:
         articles = articles_dict['articles']
         for article in articles:
             article["category"] = find_category(article["title"], vectorizer, encoder, keywords, classifier)
 
-        relevant_articles = list(filter((lambda x : category == x["category"]), articles))
-
-        # TODO: now process articles for relevancy
-        
+        filtered_articles = list(filter((lambda x : category == x["category"]), articles))
 
     # only 1000 requests are allowed per day to newsapi.org
     except:
@@ -63,7 +61,7 @@ def get_news_articles(category):
     # print("len :: ",len(articles))
     # print(articles)
 
-    return relevant_articles
+    return filtered_articles
 
 
 def newsfeed(request):
@@ -88,6 +86,9 @@ def newsfeed(request):
         dt = dt.strftime('%h %d, %Y')
         article_dict[str(article['title'])] = (str(article['url']), str(dt),
         str(article['source']['name']), str(article['description']))
+
+    # TODO: now process articles for relevancy
+    article_dict = processRelevancy.get_relevant_articles(article_dict, category)
 
     return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})
 
