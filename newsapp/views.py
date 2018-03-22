@@ -44,7 +44,7 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 
 def get_news_articles(category):
     api = newsapi.newsapi_client.NewsApiClient(api_key=API_KEY)
-    articles_dict = api.get_everything(sources='google-news,techcrunch,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100)
+    articles_dict = api.get_everything(sources='google-news,techcrunch,the-next-web,wired, mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100)
     # print("articles:: ",articles_dict)
 
     filtered_articles = []
@@ -79,18 +79,18 @@ def newsfeed(request):
     articles = get_news_articles(category)
     # print('articles :: ',articles)
 
-    # args['articles'] = articles
     article_dict = {}
     for article in articles:
         dt = parse(str(article['publishedAt']))
-        dt = dt.strftime('%h %d, %Y')
-        article_dict[str(article['title'])] = (str(article['url']), str(dt),
-        str(article['source']['name']), str(article['description']))
+        dt1 = dt.strftime('%h %d, %Y')
+        dt2 = dt.strftime('%Y-%m-%d')
+        article_dict[str(article['title'])] = (str(article['url']), str(dt1),
+        str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']))
 
     # TODO: now process articles for relevancy
-    article_dict = processRelevancy.get_relevant_articles(article_dict, category)
-
-    return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})
+    sorted_article_dict = processRelevancy.get_relevant_articles(article_dict, category)
+    # print(sorted_article_dict)
+    return render(request, 'newsapp/newsfeed.html', {'article_list': sorted_article_dict})
 
 
 
