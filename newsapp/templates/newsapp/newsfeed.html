@@ -1,8 +1,27 @@
 {% extends 'newsapp/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 <script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
 <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"></link>
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<style>
+.date {
+    font-weight: bold;
+		color: #828282
+}
+
+.tab {
+       display:inline-block;
+       margin-left: 21px;
+}
+ul
+{
+  display:flex;
+  list-style:none;
+	padding-left: 21px
+}
+</style>
 
 <!-- <select>
   <option value="google-news">google news</option>
@@ -19,7 +38,7 @@
 </form> -->
 <!-- <span class="utc">Thursday, March 15 2018, 18:31:08 +0000 UTC</span> -->
 <form action="#" method="get">
-	Select News Category:<br><br>
+	<!-- Select News Category:<br><br> -->
  <!-- <input type="text" placeholder="#latestnews" name="hashtag" size="20"/>
  <br><br> -->
  <input type="submit" class="btn" value="Technology" name="techbtn">
@@ -41,11 +60,14 @@
 		<li>
 
 			<a href = '{{ data.0 }}' target="_blank">{{title}}</a><br>
-      {% if data.3 != '' %}
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data.3}}<br>
+
+			{% if data.3 != '' %}
+		  <span class = "tab">{{data.3}}</span><br>
       {% endif %}
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ data.2 }}
-			 {{data.1}}
+			<ul>
+			<li><strong>{{ data.2 }}</strong></li> &emsp;
+			 <li>{{data.1}}</li>
+	 </ul>
 
 		</li>
 

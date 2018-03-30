@@ -14,6 +14,7 @@ from sklearn.naive_bayes import MultinomialNB
 from functools import partial
 
 from dateutil.parser import parse
+from datetime import datetime, timedelta
 
 from . import preprocessing
 from . import processRelevancy
@@ -44,7 +45,8 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 
 def get_news_articles(category):
     api = newsapi.newsapi_client.NewsApiClient(api_key=API_KEY)
-    articles_dict = api.get_everything(sources='google-news,techcrunch,the-next-web,wired, mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100)
+    from_date = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
+    articles_dict = api.get_everything(sources='google-news,techcrunch,the-next-web,wired, mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100,from_parameter=from_date)
     # print("articles:: ",articles_dict)
 
     filtered_articles = []
