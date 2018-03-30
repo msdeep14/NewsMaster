@@ -1,16 +1,20 @@
 '''
-title: 'Russian presidential elections, Indian Wells and other news in pictures':
-url: ('http://www.thehindu.com/news/russian-presidential-elections-indian-wells-and-other-news-in-pictures/article23290204.ece',
-publishedAt: 'Mar 19, 2018',
-source: 'The Hindu',
-description: 'Published at 8:30 a.m\xa0Juan Martin del Potro saved three match points in a thrilling final at the BNP Paribas Open before handing world number one Roger Federer his first loss of the year and claiming')
+0  ('http://techcrunch.com/2018/03/22/alphabets-outline-lets-you-build-your-own-vpn/',
+1 'Mar 22, 2018',
+2  'TechCrunch',
+3 'Alphabet’s cybersecurity division Jigsaw released an interesting new project called Outline. If I simplify things quite a lot, it lets anyone create and run a VPN server on DigitalOcean, and then grant your team access to this server. I played a bit with Outl…',
+4  'techcrunch',
+5	 '2018-03-22',
+6	 'Alphabet’s Outline lets you build your own VPN')
 '''
-
+import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from datetime import date
 import datetime
 import operator
 from collections import OrderedDict
+
+from . import preprocessing
 
 technology = {'techcrunch':10, 'the-next-web':9, 'wired':8, 'mashable':7, 'the-verge':6,'techradar':5, 'business-insider':4}
 business = {'business-insider':10, 'bloomberg':9, 'the-wall-street-journal':8, 'cnbc':7, 'financial-times':6,
@@ -55,6 +59,40 @@ def get_sentiment_score(sentence):
     except:
         return 0
 
+'''
+NE Type	             Examples
+ORGANIZATION	Georgia-Pacific Corp., WHO
+PERSON	        Eddy Bonte, President Obama
+LOCATION	    Murray River, Mount Everest
+DATE	        June, 2008-06-29
+TIME	        two fifty a m, 1:30 p.m.
+MONEY	        175 million Canadian Dollars, GBP 10.40
+PERCENT	        twenty pct, 18.75 %
+FACILITY	    Washington Monument, Stonehenge
+GPE	            South East Asia, Midlothian
+'''
+
+def get_named_entities(sentence):
+    named_entities = []
+    for sent in nltk.sent_tokenize(sentence):
+        for chunk in nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent))):
+            if hasattr(chunk, 'label'):
+                # print(chunk.label(), ' '.join(c[0] for c in chunk))
+                s = {chunk.label(), ' '.join(c[0] for c in chunk)}
+                named_entities.append(s)
+    return named_entities
+
+def get_text_quality_score(sentence):
+    # print("sen:: ",sentence)
+    if sentence == '':
+        return 0
+    else:
+        prev_score = len(sentence.split(' '))
+        keywords = []
+        after = preprocessing.normalize_text(sentence, keywords)
+        after_score = len(after.split(' '))
+        # print("prev, after score:: ", prev_score, "  ", after_score)
+        return (after_score/prev_score)
 
 def get_score(article, article_value, category):
     # print("article:: ",article, "\n",article_value)
@@ -63,11 +101,13 @@ def get_score(article, article_value, category):
     dt = article_value[5].split('-')
     dt1 = date(int(dt[0]), int(dt[1]), int(dt[2]))
     dt2 = datetime.date.today()
-    age = (dt2 - dt1).days
-    source = get_source_score(article_value, category)
+    age_score = (dt2 - dt1).days
+    source_score = get_source_score(article_value, category)
     # print("source score :: ", source)
-    sentiment = get_sentiment_score(article_value[3])
-    return (age + source + sentiment)
+    sentiment_score = get_sentiment_score(article_value[3])
+    text_quality_score = get_text_quality_score(article_value[3])
+    named_entities = get_named_entities(article_value[3])
+    return (age_score + source_score + sentiment_score + text_quality_score)
 
 def get_relevant_articles(article_dict, category):
     # print("articles123:: \n",articles)

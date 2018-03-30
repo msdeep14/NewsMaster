@@ -1,0 +1,154 @@
+python manage.py runserver
+Performing system checks...
+
+expected string or bytes-like object
+description: 'Captain America' sets record
+tokens: ["'captain", 'america', 'sets', 'record']
+
+description: Libya Oil Sales to Rise as Rebels Agree to Surrender Ports
+tokens: ['libya', 'oil', 'sales', 'rise', 'rebels', 'agree', 'surrender', 'ports']
+
+description: Prince George Is 'Very Funny' And 'Amazing,' Pippa Middleton Says Of England's  ...
+tokens: ['prince', 'george', "'very", 'funny', "'amazing", 'pippa', 'middleton', 'says', 'england']
+
+description: Surface Pro 2 vs. Surface Pro 3: Comparing Design, Dimensions, Display  ...
+tokens: ['surface', 'pro', 'vs', 'surface', 'pro', 'comparing', 'design', 'dimensions', 'display']
+
+description: Drop off unused drugs: officials
+tokens: ['drop', 'unused', 'drugs', 'officials']
+
+category : b
+top 10 keywords: [('us', 163), ('stocks', 91), ('china', 88), ('new', 84), ('says', 59), ('sales', 53), ('prices', 53), ('data', 52), ('market', 51), ('billion', 49)]
+---
+category : t
+top 10 keywords: [('google', 1136), ('apple', 997), ('new', 814), ('samsung', 776), ('microsoft', 677), ('galaxy', 578), ('facebook', 560), ('one', 389), ('android', 386), ('us', 332)]
+---
+category : e
+top 10 keywords: [('new', 874), ('kim', 611), ('kardashian', 597), ('video', 585), ('season', 536), ("'the", 481), ('movie', 440), ('review', 440), ('star', 418), ('thrones', 391)]
+---
+category : m
+top 10 keywords: [('ebola', 370), ('study', 345), ('health', 285), ('cancer', 263), ('new', 257), ('may', 209), ('mers', 198), ('virus', 194), ('us', 183), ('risk', 174)]
+---
+(42054, 6851)
+               tfidf
+new         3.877355
+us          4.200732
+google      4.540127
+apple       4.655557
+2014        4.768407
+video       4.791325
+first       4.845451
+says        4.872510
+samsung     4.938649
+may         4.993871
+microsoft   5.060562
+one         5.092800
+day         5.163626
+facebook    5.183704
+galaxy      5.217014
+kim         5.238205
+report      5.244816
+star        5.256493
+watch       5.259854
+china       5.261539
+kardashian  5.263227
+review      5.292364
+season      5.299344
+game        5.334999
+million     5.353314
+amazon      5.400627
+stocks      5.418223
+sales       5.436133
+tv          5.446224
+time        5.460525
+                        tfidf
+mtv vma              9.248838
+glamour              9.248838
+resistance           9.248838
+surgeon general      9.248838
+compares             9.248838
+estranged wife       9.248838
+simon edie           9.248838
+ceos                 9.248838
+louis dreyfus        9.248838
+lowered              9.248838
+nephew               9.248838
+displays             9.248838
+episode 16           9.248838
+americas             9.248838
+priority             9.248838
+96                   9.248838
+video streaming      9.248838
+watch new            9.248838
+consumer spending    9.248838
+sandra bullock       9.248838
+gordon               9.248838
+firing               9.248838
+notice               9.248838
+keeping kardashians  9.248838
+split two            9.248838
+zones                9.248838
+old girl             9.248838
+rear                 9.248838
+sequels              9.248838
+duck dynasty         9.248838
+(42054, 50)
+[t-SNE] Computing 91 nearest neighbors...
+[t-SNE] Indexed 42054 samples in 0.246s...
+[t-SNE] Computed neighbors for 42054 samples in 238.646s...
+[t-SNE] Computed conditional probabilities for sample 1000 / 42054
+[t-SNE] Computed conditional probabilities for sample 2000 / 42054
+[t-SNE] Computed conditional probabilities for sample 3000 / 42054
+[t-SNE] Computed conditional probabilities for sample 4000 / 42054
+[t-SNE] Computed conditional probabilities for sample 5000 / 42054
+[t-SNE] Computed conditional probabilities for sample 6000 / 42054
+[t-SNE] Computed conditional probabilities for sample 7000 / 42054
+[t-SNE] Computed conditional probabilities for sample 8000 / 42054
+[t-SNE] Computed conditional probabilities for sample 9000 / 42054
+[t-SNE] Computed conditional probabilities for sample 10000 / 42054
+[t-SNE] Computed conditional probabilities for sample 11000 / 42054
+[t-SNE] Computed conditional probabilities for sample 12000 / 42054
+[t-SNE] Computed conditional probabilities for sample 13000 / 42054
+[t-SNE] Computed conditional probabilities for sample 14000 / 42054
+[t-SNE] Computed conditional probabilities for sample 15000 / 42054
+[t-SNE] Computed conditional probabilities for sample 16000 / 42054
+[t-SNE] Computed conditional probabilities for sample 17000 / 42054
+[t-SNE] Computed conditional probabilities for sample 18000 / 42054
+[t-SNE] Computed conditional probabilities for sample 19000 / 42054
+[t-SNE] Computed conditional probabilities for sample 20000 / 42054
+[t-SNE] Computed conditional probabilities for sample 21000 / 42054
+[t-SNE] Computed conditional probabilities for sample 22000 / 42054
+[t-SNE] Computed conditional probabilities for sample 23000 / 42054
+[t-SNE] Computed conditional probabilities for sample 24000 / 42054
+[t-SNE] Computed conditional probabilities for sample 25000 / 42054
+[t-SNE] Computed conditional probabilities for sample 26000 / 42054
+[t-SNE] Computed conditional probabilities for sample 27000 / 42054
+[t-SNE] Computed conditional probabilities for sample 28000 / 42054
+[t-SNE] Computed conditional probabilities for sample 29000 / 42054
+[t-SNE] Computed conditional probabilities for sample 30000 / 42054
+[t-SNE] Computed conditional probabilities for sample 31000 / 42054
+[t-SNE] Computed conditional probabilities for sample 32000 / 42054
+[t-SNE] Computed conditional probabilities for sample 33000 / 42054
+[t-SNE] Computed conditional probabilities for sample 34000 / 42054
+[t-SNE] Computed conditional probabilities for sample 35000 / 42054
+[t-SNE] Computed conditional probabilities for sample 36000 / 42054
+[t-SNE] Computed conditional probabilities for sample 37000 / 42054
+[t-SNE] Computed conditional probabilities for sample 38000 / 42054
+[t-SNE] Computed conditional probabilities for sample 39000 / 42054
+[t-SNE] Computed conditional probabilities for sample 40000 / 42054
+[t-SNE] Computed conditional probabilities for sample 41000 / 42054
+[t-SNE] Computed conditional probabilities for sample 42000 / 42054
+[t-SNE] Computed conditional probabilities for sample 42054 / 42054
+[t-SNE] Mean sigma: 0.000000
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 85.156982
+[t-SNE] Error after 1000 iterations: 1.657140
+(42054, 2)
+Training complete
+svm Accuracy::  0.8718345024372846
+Naive bayes Accuracy  0.9014385923195815
+Model saved
+System check identified no issues (0 silenced).
+March 26, 2018 - 19:27:24
+Django version 1.11.11, using settings 'newsmaster.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
