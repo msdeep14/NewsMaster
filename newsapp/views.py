@@ -46,9 +46,12 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 def get_news_articles(category):
     api = newsapi.newsapi_client.NewsApiClient(api_key=API_KEY)
     from_date = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
-    articles_dict = api.get_everything(sources='google-news,techcrunch,the-next-web,wired, mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100,from_parameter=from_date)
+    articles_dict = api.get_everything(sources='buzzfeed,daily-mail,the-lad-bible,polygon,fortune,the-economist,ars-technica,engadget,recode,australian-financial-review,google-news,techcrunch,the-next-web,wired, mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100,from_parameter=from_date)
     # print("articles:: ",articles_dict)
-
+    # print("health sources:: ",api.get_sources(language='en', category='health'))
+    # print("entertainment sources:: ",api.get_sources(language='en', category='entertainment'))
+    # print("business sources:: ",api.get_sources(language='en', category='business'))
+    # print("technology sources:: ",api.get_sources(language='en', category='technology'))
     filtered_articles = []
     try:
         articles = articles_dict['articles']

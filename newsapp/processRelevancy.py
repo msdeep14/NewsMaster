@@ -16,10 +16,12 @@ from collections import OrderedDict
 
 from . import preprocessing
 
-technology = {'techcrunch':10, 'the-next-web':9, 'wired':8, 'mashable':7, 'the-verge':6,'techradar':5, 'business-insider':4}
+technology = {'techcrunch':10, 'the-next-web':9, 'wired':8, 'mashable':7, 'the-verge':6,'techradar':5, 'business-insider':4
+                ,'ars-technica':4,'engadget':3,'recode':2}
 business = {'business-insider':10, 'bloomberg':9, 'the-wall-street-journal':8, 'cnbc':7, 'financial-times':6,
-            'financial-post':5}
-entertainment = {'entertainment-weekly':10, 'mtv-news':9, 'mtv-news-uk':8,'vice-news':7}
+            'financial-post':5,'australian-financial-review':4,'fortune':3,'the-economist':2}
+entertainment = {'entertainment-weekly':10, 'mtv-news':9, 'mtv-news-uk':8,'vice-news':7,'buzzfeed':6,
+                'daily-mail':5,'the-lad-bible':4,'polygon':3}
 medical = {'medical-news-today':10}
 
 def get_source_score(article_value, category):
