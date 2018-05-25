@@ -59,26 +59,26 @@ def train_model(news, keywords):
     vz = vectorizer.fit_transform(list(news['title']))
     print(vz.shape) # give no of dimensions(value of 2nd index)
 
-    tfidf = dict(zip(vectorizer.get_feature_names(), vectorizer.idf_))
-    tfidf = pd.DataFrame(columns=['tfidf']).from_dict(dict(tfidf), orient='index')
-    tfidf.columns = ['tfidf']
-
-    # tfidf.tfidf.hist(bins=50, figsize=(15,7))
-    print(tfidf.sort_values(by=['tfidf'], ascending=True).head(30))
-    print(tfidf.sort_values(by=['tfidf'], ascending=False).head(30))
-
-    from sklearn.decomposition import TruncatedSVD
-    svd = TruncatedSVD(n_components=50, random_state=0)
-    svd_tfidf = svd.fit_transform(vz)
-
-    print(svd_tfidf.shape) # dimensions reduced to 50
-
-    # now reduce no. of dimensions from 50 to 2
-    from sklearn.manifold import TSNE
-
-    tsne_model = TSNE(n_components=2, verbose=1, random_state=0)
-    tsne_tfidf = tsne_model.fit_transform(svd_tfidf)
-    print(tsne_tfidf.shape)
+    # tfidf = dict(zip(vectorizer.get_feature_names(), vectorizer.idf_))
+    # tfidf = pd.DataFrame(columns=['tfidf']).from_dict(dict(tfidf), orient='index')
+    # tfidf.columns = ['tfidf']
+    #
+    # # tfidf.tfidf.hist(bins=50, figsize=(15,7))
+    # print(tfidf.sort_values(by=['tfidf'], ascending=True).head(30))
+    # print(tfidf.sort_values(by=['tfidf'], ascending=False).head(30))
+    #
+    # from sklearn.decomposition import TruncatedSVD
+    # svd = TruncatedSVD(n_components=50, random_state=0)
+    # svd_tfidf = svd.fit_transform(vz)
+    #
+    # print(svd_tfidf.shape) # dimensions reduced to 50
+    #
+    # # now reduce no. of dimensions from 50 to 2
+    # from sklearn.manifold import TSNE
+    #
+    # tsne_model = TSNE(n_components=2, verbose=1, random_state=0)
+    # tsne_tfidf = tsne_model.fit_transform(svd_tfidf)
+    # print(tsne_tfidf.shape)
 
     # import bokeh.plotting as bp
     # from bokeh.models import HoverTool, BoxSelectTool

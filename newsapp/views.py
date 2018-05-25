@@ -46,7 +46,11 @@ def find_category(title, vectorizer, encoder, keywords, classifier):
 def get_news_articles(category):
     api = newsapi.newsapi_client.NewsApiClient(api_key=API_KEY)
     from_date = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
-    articles_dict = api.get_everything(sources='buzzfeed,daily-mail,the-lad-bible,polygon,fortune,the-economist,ars-technica,engadget,recode,australian-financial-review,google-news,techcrunch,the-next-web,wired, mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100,from_parameter=from_date)
+    if category == 'top':
+        articles_dict = api.get_top_headlines(language='en',page_size=100,page=5)
+        return articles_dict
+    else:
+        articles_dict = api.get_everything(sources='techcrunch,the-next-web,wired,the-lad-bible,polygon,fortune,the-economist,ars-technica,engadget,recode,australian-financial-review,google-news,mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100,from_parameter=from_date,page=5)
     # print("articles:: ",articles_dict)
     # print("health sources:: ",api.get_sources(language='en', category='health'))
     # print("entertainment sources:: ",api.get_sources(language='en', category='entertainment'))
@@ -71,8 +75,10 @@ def get_news_articles(category):
 
 def newsfeed(request):
     # print("REMOVE THIS ONCE DEBUGGING IS DONE!!!\n")
-    category = 't'
-    if(request.GET.get('techbtn')):
+    category = 'top'
+    if(request.GET.get('topbtn')):
+        category = 'top'
+    elif(request.GET.get('techbtn')):
         category = 't'
     elif(request.GET.get('medicalbtn')):
         category = 'm'
@@ -85,17 +91,27 @@ def newsfeed(request):
     # print('articles :: ',articles)
 
     article_dict = {}
-    for article in articles:
-        dt = parse(str(article['publishedAt']))
-        dt1 = dt.strftime('%h %d, %Y')
-        dt2 = dt.strftime('%Y-%m-%d')
-        article_dict[str(article['title'])] = (str(article['url']), str(dt1),
-        str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']))
+    if(category == 'top'):
+        # print(articles['articles'])
+        for article in articles['articles']:
+            dt = parse(str(article['publishedAt']))
+            dt1 = dt.strftime('%h %d, %Y')
+            dt2 = dt.strftime('%Y-%m-%d')
+            article_dict[str(article['title'])] = (str(article['url']), str(dt1),
+            str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']))
+        return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})
+    else:
+        for article in articles:
+            dt = parse(str(article['publishedAt']))
+            dt1 = dt.strftime('%h %d, %Y')
+            dt2 = dt.strftime('%Y-%m-%d')
+            article_dict[str(article['title'])] = (str(article['url']), str(dt1),
+            str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']))
 
-    # TODO: now process articles for relevancy
-    sorted_article_dict = processRelevancy.get_relevant_articles(article_dict, category)
-    # print(sorted_article_dict)
-    return render(request, 'newsapp/newsfeed.html', {'article_list': sorted_article_dict})
+        # TODO: now process articles for relevancy
+        sorted_article_dict = processRelevancy.get_relevant_articles(article_dict, category)
+        # print(sorted_article_dict)
+        return render(request, 'newsapp/newsfeed.html', {'article_list': sorted_article_dict})
 
 
 
