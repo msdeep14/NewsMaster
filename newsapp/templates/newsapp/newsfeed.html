@@ -23,19 +23,6 @@ ul
 }
 </style>
 
-<!-- <select>
-  <option value="google-news">google news</option>
-  <option value="business-insider">business insider</option>
-  <option value="the-hindu">the hindu</option>
-  <option value="techcrunch">techcrunch</option>
-</select> -->
-
-<!-- <form action="#" method="get">
-	Select News Source:<br>
-	<input type="submit" class="btn" value="google news" name="google-news-btn">
-	<input type="submit" class="btn" value="techcrunch" name="techcrunch-btn">
-	<input type="submit" class="btn" value="the hindu" name="the-hindu-btn">
-</form> -->
 <!-- <span class="utc">Thursday, March 15 2018, 18:31:08 +0000 UTC</span> -->
 <form action="#" method="get">
 	<!-- Select News Category:<br><br> -->
@@ -58,7 +45,9 @@ ul
 6	 'Alphabet’s Outline lets you build your own VPN') -->
 
 {% for title, data in article_list.items %}
-		<li>
+
+    {% if title != '' %}
+    <li>
 
 			<a href = '{{ data.0 }}' target="_blank">{{title}}</a><br>
 
@@ -71,6 +60,8 @@ ul
 	 </ul>
 
 		</li>
+
+    {% endif %}
 
 			{% empty %}
 	    No relevant news, try another category
