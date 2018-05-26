@@ -21,6 +21,14 @@ ul
   list-style:none;
 	padding-left: 21px
 }
+
+.create
+{
+background-image: url('http://images.indianexpress.com/2016/03/android-m-big.jpg');
+background-repeat: no-repeat;
+padding-left: 30px;
+display: block;
+}
 </style>
 
 <!-- <span class="utc">Thursday, March 15 2018, 18:31:08 +0000 UTC</span> -->
@@ -42,9 +50,17 @@ ul
 3 'Alphabet’s cybersecurity division Jigsaw released an interesting new project called Outline. If I simplify things quite a lot, it lets anyone create and run a VPN server on DigitalOcean, and then grant your team access to this server. I played a bit with Outl…',
 4  'techcrunch',
 5	 '2018-03-22',
-6	 'Alphabet’s Outline lets you build your own VPN') -->
+6	 'Alphabet’s Outline lets you build your own VPN')
+7 article category
+ -->
 
 {% for title, data in article_list.items %}
+
+    {% if forloop.first %}
+    <!-- <span class="create">create something</span> -->
+      <font size="7" color="green"><strong>{{ data.7 }}</strong></font>
+    {% endif %}
+
 
     {% if title != '' %}
     <li>

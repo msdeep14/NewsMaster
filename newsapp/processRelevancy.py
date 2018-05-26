@@ -26,7 +26,6 @@ medical = {'medical-news-today':10}
 
 def get_source_score(article_value, category):
     src = article_value[4]
-    # print("src:: ", src, "  ", category)
     var = 0
     if(category == 't'):
         try:
@@ -53,9 +52,6 @@ def get_source_score(article_value, category):
 def get_sentiment_score(sentence):
     sid = SentimentIntensityAnalyzer()
     ss = sid.polarity_scores(sentence)
-
-    # for k in sorted(ss):
-    #     print('{0}: {1}, '.format(k, ss[k]), end='')
     try:
         return ss['compound']
     except:
@@ -85,7 +81,6 @@ def get_named_entities(sentence):
     return named_entities
 
 def get_text_quality_score(sentence):
-    # print("sen:: ",sentence)
     if sentence == '':
         return 0
     else:

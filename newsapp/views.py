@@ -76,16 +76,22 @@ def get_news_articles(category):
 def newsfeed(request):
     # print("REMOVE THIS ONCE DEBUGGING IS DONE!!!\n")
     category = 'top'
+    category_value = 'Top Stories'
     if(request.GET.get('topbtn')):
         category = 'top'
+        category_value = 'Top Stories'
     elif(request.GET.get('techbtn')):
         category = 't'
+        category_value = 'Technology'
     elif(request.GET.get('medicalbtn')):
         category = 'm'
+        category_value = 'Medical'
     elif(request.GET.get('businessbtn')):
         category = 'b'
+        category_value = 'Business'
     elif(request.GET.get('enterbtn')):
         category = 'e'
+        category_value = 'Entertainment'
 
     articles = get_news_articles(category)
     # print('articles :: ',articles)
@@ -98,7 +104,7 @@ def newsfeed(request):
             dt1 = dt.strftime('%h %d, %Y')
             dt2 = dt.strftime('%Y-%m-%d')
             article_dict[str(article['title'])] = (str(article['url']), str(dt1),
-            str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']))
+            str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']),str(category_value))
         return render(request, 'newsapp/newsfeed.html', {'article_list': article_dict})
     else:
         for article in articles:
@@ -106,7 +112,7 @@ def newsfeed(request):
             dt1 = dt.strftime('%h %d, %Y')
             dt2 = dt.strftime('%Y-%m-%d')
             article_dict[str(article['title'])] = (str(article['url']), str(dt1),
-            str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']))
+            str(article['source']['name']), str(article['description']), str(article['source']['id']),str(dt2), str(article['title']),str(category_value))
 
         # TODO: now process articles for relevancy
         sorted_article_dict = processRelevancy.get_relevant_articles(article_dict, category)
