@@ -255,4 +255,4 @@ def perform_preprocessing():
 
 
 # function to train model at system start
-#perform_preprocessing()
+perform_preprocessing()

@@ -1,0 +1,17 @@
+{% extends 'newsapp/base.html' %}
+
+{% block content %}
+    <h1>Login to NewsMaster</h1>
+
+    <form id="login_form" method="post" action="/login/">
+        {% csrf_token %}
+        Username <input type="text" name="username" value="" size="30" />
+        <br /><br>
+        Password &nbsp;<input type="password" name="password" value="" size="30" />
+        <br /><br>
+
+        <input type="submit" value="submit" />
+    </form>
+
+    <a href="/register">Register as a new User</a>
+{% endblock %}
