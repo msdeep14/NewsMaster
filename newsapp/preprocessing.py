@@ -133,8 +133,8 @@ def train_model(news, keywords):
     text_clf_svm = SGDClassifier(loss='hinge', penalty='l2',alpha=1e-3, max_iter=5, random_state=42)
     text_clf_svm = text_clf_svm.fit(x_train, y_train)
 
-    print("Training complete")
-    print("svm Accuracy:: ",text_clf_svm.score(x_test,y_test))
+    print("\nTraining complete")
+    print("\nSVM Accuracy:: ",text_clf_svm.score(x_test,y_test))
 
     # bayes.main_naive(news)
 
@@ -143,7 +143,7 @@ def train_model(news, keywords):
     # from pprint import pprint
     # pprint(vars(nb))
 
-    print("Naive bayes Accuracy ", nb.score(x_test, y_test))
+    print("\nNaive Bayes Accuracy:: ", nb.score(x_test, y_test))
 
     pickle.dump(vectorizer, open("pickle-data/vectorizer.p", "wb"))
     pickle.dump(encoder, open("pickle-data/encoder.p", "wb"))
@@ -255,4 +255,4 @@ def perform_preprocessing():
 
 
 # function to train model at system start
-perform_preprocessing()
+#perform_preprocessing()

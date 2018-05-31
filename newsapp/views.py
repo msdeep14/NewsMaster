@@ -108,6 +108,11 @@ def newsfeed(request):
     articles = get_news_articles(category)
     # print('articles :: ',articles)
 
+    # TODO: get user information and show top stories according
+    # to user's interest
+    print("USER :: ",request.user,"\n")
+
+
     article_dict = {}
     if(category == 'top'):
         # print(articles['articles'])
