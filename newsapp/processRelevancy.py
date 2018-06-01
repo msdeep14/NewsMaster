@@ -16,7 +16,7 @@ from collections import OrderedDict
 
 from . import preprocessing
 
-technology = {'techcrunch':10, 'the-next-web':9, 'wired':8, 'mashable':7, 'the-verge':6,'techradar':5, 'business-insider':4
+technology = {'techcrunch':10, 'the-next-web':9, 'wired':8, 'mashable':7, 'the-verge':6,'techradar':5
                 ,'ars-technica':4,'engadget':3,'recode':2}
 business = {'business-insider':10, 'bloomberg':9, 'the-wall-street-journal':8, 'cnbc':7, 'financial-times':6,
             'financial-post':5,'australian-financial-review':4,'fortune':3,'the-economist':2}

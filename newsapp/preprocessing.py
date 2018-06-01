@@ -53,75 +53,17 @@ def train_model(news, keywords):
     news['category'] = news['category'].fillna('x')
     vectorizer = CountVectorizer()
 
-    #### start
     from sklearn.feature_extraction.text import TfidfVectorizer
     vectorizer = TfidfVectorizer(min_df=10, max_features=10000, ngram_range=(1, 2))
     vz = vectorizer.fit_transform(list(news['title']))
     print(vz.shape) # give no of dimensions(value of 2nd index)
 
-    # tfidf = dict(zip(vectorizer.get_feature_names(), vectorizer.idf_))
-    # tfidf = pd.DataFrame(columns=['tfidf']).from_dict(dict(tfidf), orient='index')
-    # tfidf.columns = ['tfidf']
-    #
-    # # tfidf.tfidf.hist(bins=50, figsize=(15,7))
-    # print(tfidf.sort_values(by=['tfidf'], ascending=True).head(30))
-    # print(tfidf.sort_values(by=['tfidf'], ascending=False).head(30))
-    #
-    # from sklearn.decomposition import TruncatedSVD
-    # svd = TruncatedSVD(n_components=50, random_state=0)
-    # svd_tfidf = svd.fit_transform(vz)
-    #
-    # print(svd_tfidf.shape) # dimensions reduced to 50
-    #
-    # # now reduce no. of dimensions from 50 to 2
-    # from sklearn.manifold import TSNE
-    #
-    # tsne_model = TSNE(n_components=2, verbose=1, random_state=0)
-    # tsne_tfidf = tsne_model.fit_transform(svd_tfidf)
-    # print(tsne_tfidf.shape)
-
-    # import bokeh.plotting as bp
-    # from bokeh.models import HoverTool, BoxSelectTool
-    # from bokeh.plotting import figure, show, output_notebook
-    #
-    # output_notebook()
-    # plot_tfidf = bp.figure(plot_width=700, plot_height=600, title="tf-idf clustering of the news",
-    #     tools="pan,wheel_zoom,box_zoom,reset,hover,previewsave",
-    #     x_axis_type=None, y_axis_type=None, min_border=1)
-    #
-    # tfidf_df = pd.DataFrame(tsne_tfidf, columns=['x', 'y'])
-    # tfidf_df['title'] = news['title']
-    # tfidf_df['category'] = news['category']
-    #
-    # plot_tfidf.scatter(x='x', y='y', source=tfidf_df)
-    # hover = plot_tfidf.select(dict(type=HoverTool))
-    # hover.tooltips={"title": "@title", "category":"@category"}
-    # show(plot_tfidf)
-
-    ### end
-
-
-    # print("vectorizer:: ",vectorizer
     x = vectorizer.fit_transform(news['title'])
 
     # TODO: Check if TF-IDF actually helps
     x = TfidfTransformer().fit_transform(x)
-
-    # for (i, desc),category in zip(enumerate(news.description),news['category']):
-    #     if(i < 5):
-    #         print("Cluster " + str(kmeans_clusters[i]) + ": " + desc +
-    #           "(distance: " + str(kmeans_distances[i][kmeans_clusters[i]]) + ")")
-    #     print('category: ',category)
-    #     print('---')
-
-
-    # print("\nxtfid:: ",x)
     encoder = LabelEncoder()
-
-    # print("\nencoder:: ",encoder)
     y = encoder.fit_transform(news['category'])
-
-    # print("\ny:: ",y)
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
@@ -135,13 +77,6 @@ def train_model(news, keywords):
 
     print("\nTraining complete")
     print("\nSVM Accuracy:: ",text_clf_svm.score(x_test,y_test))
-
-    # bayes.main_naive(news)
-
-    # print("\nnb:: ",nb)
-
-    # from pprint import pprint
-    # pprint(vars(nb))
 
     print("\nNaive Bayes Accuracy:: ", nb.score(x_test, y_test))
 
@@ -179,7 +114,6 @@ def tokenizer(text):
         print(e)
 
 def get_keywords(category,news):
-    # print("category:: ",category)
     tokens = news[news['category'] == category]['tokens']
     alltokens = []
     counter = 0
@@ -198,7 +132,7 @@ def perform_preprocessing():
     # news = pd.read_excel('newss.xlsx', usecols=["B,C"])
     news = pd.read_excel('newsapp/newss.xlsx')
 
-
+    # plot the no of headlines per each category
     label = news['category'].value_counts().keys().tolist()
     counts = news['category'].value_counts().tolist()
     index = np.arange(len(label))
@@ -208,13 +142,6 @@ def perform_preprocessing():
     plt.xticks(index, label, fontsize=10, rotation=30)
     plt.title('No of news headlines for each category')
     plt.show()
-
-
-    # news2 = pd.read_excel('newss.xlsx')
-
-    # print(news['category'])
-    # fp1 = open("/home/mandeep/Downloads/project-be/stopwords.txt",'w')
-    # fp1.write(str(stopwords))
 
     # remove duplicate title columns
     news = news.drop_duplicates('title')
@@ -245,11 +172,7 @@ def perform_preprocessing():
     keywords = set(keywords)
 
     s2 = len(keywords)
-    # print("s1 :: ",s1,"s2:: ",s2)
-
-    # print("keywords:: ",keywords)
-    # fp = open("/home/mandeep/project-be/keywords.txt",'w')
-    # fp.write(str(keywords))
+    print("total no of keywords before and after stemming\ns1 :: ",s1,"s2:: ",s2)
 
     train_model(news, keywords)
 

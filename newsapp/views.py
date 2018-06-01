@@ -62,7 +62,7 @@ def get_news_articles(category):
         articles_dict = api.get_top_headlines(language='en',page_size=100,page=5)
         return articles_dict
     else:
-        articles_dict = api.get_everything(sources='techcrunch,the-next-web,wired,the-lad-bible,polygon,fortune,the-economist,ars-technica,engadget,recode,australian-financial-review,google-news,mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100,from_parameter=from_date,page=5)
+        articles_dict = api.get_everything(sources='techcrunch,the-next-web,wired,the-lad-bible,polygon,fortune,the-economist,ars-technica,engadget,recode,australian-financial-review,mashable,the-verge,techradar,bloomberg,the-wall-street-journal,cnbc,financial-times,financial-post,mtv-news,mtv-news-uk,vice-news,medical-news-today,business-insider,cnn,entertainment-weekly,the-hindu,msnbc',language='en',page_size=100,from_parameter=from_date,page=5)
     # print("articles:: ",articles_dict)
     # print("health sources:: ",api.get_sources(language='en', category='health'))
     # print("entertainment sources:: ",api.get_sources(language='en', category='entertainment'))
