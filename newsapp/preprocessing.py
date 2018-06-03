@@ -60,7 +60,6 @@ def train_model(news, keywords):
 
     x = vectorizer.fit_transform(news['title'])
 
-    # TODO: Check if TF-IDF actually helps
     x = TfidfTransformer().fit_transform(x)
     encoder = LabelEncoder()
     y = encoder.fit_transform(news['category'])
